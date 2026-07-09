@@ -1,0 +1,31 @@
+# LandedCost API — Progress & Context
+
+Personal learning project: a Spring Boot REST API for inventory + landed-cost allocation. Goal is to build real "hard code" for a junior-to-mid developer portfolio. Full plan is in `Coding_Projects_Roadmap.md` (Project 1).
+
+**Developer:** Matt Neill — new to Mac and to hands-on Java/Spring; strong domain background in inventory/costing/ERP. Prefers to type the code himself and learn each concept; wants clear, beginner-friendly explanations. Be concise and direct.
+
+## Environment
+- macOS. Java: Temurin OpenJDK **21.0.11 LTS** (working).
+- **Spring Boot 4.1.0**, Maven (via included `./mvnw` wrapper — Maven not separately installed).
+- Editor: **VS Code** with "Extension Pack for Java".
+- Run the app: `./mvnw spring-boot:run` (first run downloads deps; stop with Ctrl+C).
+- DB: H2 in-memory (auto-configured) for now; PostgreSQL driver present for later.
+- Package: `com.example.demo`. Main class: `DemoApplication`.
+
+## Git / GitHub
+- Local git initialized; `.gitignore` includes standard Spring + `.DS_Store`.
+- Remote: **https://github.com/MattNeill1/Landed-Cost-API** (branch `main` tracks `origin/main`).
+- Rhythm: after each milestone → `git add .` → `git commit -m "..."` → `git push`.
+
+## Milestone status (roadmap Project 1)
+- [x] **M1 — Hello Spring.** `HealthController` serves `GET /api/health` → `{"status":"ok","service":"landed-cost-api"}`. Verified in browser. Committed + pushed.
+- [x] **M2 — Items CRUD.** DONE. `Item` JPA entity (id, sku, description, unitCost as BigDecimal, quantityOnHand); `ItemRepository extends JpaRepository<Item, Long>`; `ItemController` with POST/GET(all)/GET(one)/PUT/DELETE at `/api/items`, using constructor injection, `Optional`, and `ResponseEntity` for 404/204 handling. PUT does full-replace (sets id from path). Tested via Postman. Committed + pushed.
+- [ ] M3 — Shipments + landed-cost allocation engine (BigDecimal math, pluggable by value/weight/quantity).
+- [ ] M4 — Validation + global error handling.
+- [ ] M5 — PostgreSQL via Docker + JUnit/Mockito tests.
+- [ ] M6 — OpenAPI/Swagger docs, README, Dockerfile.
+
+## Teaching notes
+- Matt writes the code; assistant explains each annotation/concept and reviews before running.
+- Use VS Code "Source Action → Generate Getters and Setters" for boilerplate.
+- Money = `BigDecimal`, never `double`.
