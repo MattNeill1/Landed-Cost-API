@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
 import java.math.BigDecimal;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Item {
@@ -12,9 +15,15 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String sku;
+    @NotBlank
     private String description;
+    @NotNull
+    @PositiveOrZero
     private BigDecimal unitCost;
+    @NotNull
+    @PositiveOrZero
     private Integer quantityOnHand;
 
     public Item() {

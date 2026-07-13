@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {
@@ -22,7 +24,7 @@ public class ItemController {
         this.repository = repository;
     }
     @PostMapping
-    public Item create(@RequestBody Item item) {
+    public Item create(@Valid@RequestBody Item item) {
         return repository.save(item);
     }
     @GetMapping
@@ -35,7 +37,7 @@ public class ItemController {
         return item.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Item> updateItem(@PathVariable Long id, @RequestBody Item item) {
+    public ResponseEntity<Item> updateItem(@PathVariable Long id, @Valid @RequestBody Item item) {
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
