@@ -20,7 +20,7 @@ Personal learning project: a Spring Boot REST API for inventory + landed-cost al
 ## Milestone status (roadmap Project 1)
 - [x] **M1 — Hello Spring.** `HealthController` serves `GET /api/health` → `{"status":"ok","service":"landed-cost-api"}`. Verified in browser. Committed + pushed.
 - [x] **M2 — Items CRUD.** DONE. `Item` JPA entity (id, sku, description, unitCost as BigDecimal, quantityOnHand); `ItemRepository extends JpaRepository<Item, Long>`; `ItemController` with POST/GET(all)/GET(one)/PUT/DELETE at `/api/items`, using constructor injection, `Optional`, and `ResponseEntity` for 404/204 handling. PUT does full-replace (sets id from path). Tested via Postman. Committed + pushed.
-- [ ] M3 — Shipments + landed-cost allocation engine (BigDecimal math, pluggable by value/weight/quantity).
+- [x] **M3 — Shipments + landed-cost allocation engine.** DONE. `Shipment`/`ShipmentLine` JPA entities (bidirectional OneToMany, `mappedBy="shipment"`, cascade ALL); `LineAllocation` response POJO; `AllocationMethod` enum (VALUE/WEIGHT/QUANTITY). `AllocationService` spreads freight+duty+insurance pool using a running-total technique so pennies sum exactly to the pool; `BigDecimal` throughout with `HALF_UP` rounding. `ShipmentController`: POST create, GET list, GET `/{id}/allocation`. Tested via Postman (create + allocation). Committed + pushed. NOTE: create response is verbose due to bidirectional serialization — `@JsonManagedReference`/`@JsonBackReference` (or DTO) fix deferred.
 - [ ] M4 — Validation + global error handling.
 - [ ] M5 — PostgreSQL via Docker + JUnit/Mockito tests.
 - [ ] M6 — OpenAPI/Swagger docs, README, Dockerfile.
