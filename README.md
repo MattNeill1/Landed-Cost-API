@@ -48,25 +48,35 @@ DB_USER=landed
 DB_PASSWORD=landed
 ```
 
-### 3. Start the database
+### 3. Run the app
+
+There are two ways to run it, depending on what you're doing.
+
+#### Option A — Everything in Docker (simplest)
+
+Builds and runs the API and PostgreSQL together in containers with one command:
 
 ```bash
-docker compose up -d
+docker compose up --build
 ```
 
-This starts PostgreSQL in a container using the values from `.env`. Data persists across restarts via a named Docker volume.
+The API comes up at `http://localhost:8080`. Stop it with `Ctrl+C`, or `docker compose down` from another terminal. This needs nothing installed but Docker, and is the closest to how it would run in production. Data persists across restarts via a named Docker volume.
 
-### 4. Run the application
+#### Option B — Local development (fast iteration)
 
-Spring reads the database credentials from environment variables, so export them in your shell before starting the app:
+Run only the database in a container and the app directly on your machine — best while actively coding, since app restarts are instant:
 
 ```bash
+# start ONLY the database container
+docker compose up -d db
+
+# Spring reads the DB credentials from environment variables
 export DB_USER=landed
 export DB_PASSWORD=landed
 ./mvnw spring-boot:run
 ```
 
-The API is now available at `http://localhost:8080`.
+The API is available at `http://localhost:8080`. Requires Java 21 (the Maven wrapper is included).
 
 ## API documentation
 
