@@ -11,6 +11,9 @@ import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Shipment {
@@ -21,9 +24,14 @@ public class Shipment {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipment")
     private List<ShipmentLine> shipmentLines = new ArrayList<>();
 
+    @NotBlank
     private String shipmentNumber;
+    @NotNull
+    @PositiveOrZero
     private BigDecimal freightCost;
+    @PositiveOrZero
     private BigDecimal dutyCost;
+    @PositiveOrZero
     private BigDecimal insuranceCost;
 
     @Enumerated(EnumType.STRING)

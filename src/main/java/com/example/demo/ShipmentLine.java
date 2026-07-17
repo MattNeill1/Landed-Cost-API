@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ShipmentLine {
@@ -17,6 +18,7 @@ public class ShipmentLine {
     private Item item;
 
     @ManyToOne
+    @JsonIgnore
     private Shipment shipment;
 
     private Integer quantity;
